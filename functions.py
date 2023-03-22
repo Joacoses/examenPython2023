@@ -38,8 +38,13 @@ def split(d):
         for key in dicctionary.keys():
             if key == "type" and dicctionary.get(key) == "white":
                 contador_white += 1
-                dic_white.update({dicctionary})
-        print(dic_white)
+                llave = tuple(dicctionary.keys())
+                valor = tuple(dicctionary.values())
+                lista_tuplas = list(zip(llave, valor))
+                #dic_white = dict(lista_tuplas)
+                dic_white.update({"dato"+ str(contador_white): lista_tuplas})
+                
+    print(dic_white)
 
 
 
