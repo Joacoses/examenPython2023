@@ -22,11 +22,10 @@ def read_data(fichero):
             #diccionario final
             for i in diccionario:
                 dic_final.update({"dato"+ str(contador): diccionario})
-
+    #print(dic_final)
     return dic_final
     
 
-res = read_data(f)
 
 def split(d):
     dic_white = {}
@@ -36,18 +35,25 @@ def split(d):
     for dicctionary in d.values():
         #pillamos la clave para comparar con "success"
         for key in dicctionary.keys():
+            
             if key == "type" and dicctionary.get(key) == "white":
                 contador_white += 1
                 llave = tuple(dicctionary.keys())
                 valor = tuple(dicctionary.values())
                 lista_tuplas = list(zip(llave, valor))
-                #dic_white = dict(lista_tuplas)
-                dic_white.update({"dato"+ str(contador_white): lista_tuplas})
-                
-    print(dic_white)
+                dic_white.update({"dato"+ str(contador_white): dict(lista_tuplas)})
+            
+            elif key == "type" and dicctionary.get(key) == "red":
+                contador_red += 1
+                llave_red = tuple(dicctionary.keys())
+                valor_red = tuple(dicctionary.values())
+                lista_tuplas_red = list(zip(llave_red, valor_red))
 
+                dic_red.update({"dato"+ str(contador_red): dict(lista_tuplas_red)})
 
+    #print(dic_white)
+    #print(dic_red) 
+    
+    return dic_red, dic_white
 
-
-res2 = split(dic_final)
 
