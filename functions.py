@@ -26,27 +26,41 @@ def read_data(fichero):
     return dic_final
     
 
-
+#-------------------------------------------------------------------------------------------------------------------------------------------------
+dic_white = {}
+dic_red = {}
 def split(d):
-    dic_white = {}
-    dic_red = {}
     contador_white = 0
     contador_red = 0
     for dicctionary in d.values():
-        #pillamos la clave para comparar con "success"
+        #pillamos la clave para comparar con "type"
         for key in dicctionary.keys():
             
             if key == "type" and dicctionary.get(key) == "white":
                 contador_white += 1
-                llave = tuple(dicctionary.keys())
-                valor = tuple(dicctionary.values())
-                lista_tuplas = list(zip(llave, valor))
+                llave1 = tuple(dicctionary.keys())
+                eliminar_llave = "type"
+                llave_white = tuple([elemento for elemento in llave1 if elemento != eliminar_llave])
+
+                valor1 = tuple(dicctionary.values())
+                eliminar_valor_white = "white"
+                valor_white = tuple([elemento for elemento in valor1 if elemento != eliminar_valor_white])
+
+
+                lista_tuplas = list(zip(llave_white, valor_white))
                 dic_white.update({"dato"+ str(contador_white): dict(lista_tuplas)})
             
             elif key == "type" and dicctionary.get(key) == "red":
                 contador_red += 1
-                llave_red = tuple(dicctionary.keys())
-                valor_red = tuple(dicctionary.values())
+
+                llave1 = tuple(dicctionary.keys())
+                eliminar_llave = "type"
+                llave_red = tuple([elemento for elemento in llave1 if elemento != eliminar_llave])
+
+                valor1 = tuple(dicctionary.values())
+                eliminar_valor_red = "red"
+                valor_red = tuple([elemento for elemento in valor1 if elemento != eliminar_valor_red])
+
                 lista_tuplas_red = list(zip(llave_red, valor_red))
 
                 dic_red.update({"dato"+ str(contador_red): dict(lista_tuplas_red)})
@@ -54,6 +68,19 @@ def split(d):
     #print(dic_white)
     #print(dic_red) 
     
-    return dic_red, dic_white
+    return dic_white, dic_red
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------
+def reduce(d, string):
+    datos = []
+    for dicctionary in d.values():
+        
+        for key in dicctionary.keys():
+            if key == string:
+                datos.append(dicctionary.get(key))
+            else:
+                print("El dato introducido no se encuentra")
+    return datos
 
 
